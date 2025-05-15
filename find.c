@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 		if(fp == NULL)
 			fprintf(stderr, "Error: unable to open %s file!\n", *argv);
 
-		printf("File %s\n", *argv);
+		printf("File \"%s\"\n", *argv);
 		unsigned long lnum = 0;
 		char line[MAXLINE], *lp;
 		while((lp = fgets(line, MAXLINE, fp)) != NULL)
@@ -59,7 +59,7 @@ int main(int argc, char **argv)
 			{
 				if(n)
 					printf("%-5lu\t", lnum);
-				printf("%s\n", line);
+				printf("%s", line);
 			}
 		}
 		printf("\n\n");
