@@ -73,14 +73,10 @@ int main(int argc, char **argv)
 		}
 		printf("\n\n");
 		/* close each file and advance argv */
-		fclose(fp); /* XXX: should we do error checking for EOF?? */
+		fclose(fp);
+		if(ferror(fp))
+			fprintf(stderr, "Error closing file %s\n", *argv);
 		++argv;
 	}
-
-	/* TODO: REMEMBER TO ADD FEOF AND FERROR HANDLING LATER */
-	/*TODO: GET FILE INPUTS */
-	
-
-	/* TODO: FIND PROGRAM */	
 }
 
