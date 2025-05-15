@@ -54,8 +54,15 @@ int main(int argc, char **argv)
 		while((lp = fgets(line, MAXLINE, fp)) != NULL)
 		{
 			lnum++;
-			/* TODO: add exclude */
-			if(strstr(line, pat) != NULL)
+			char *fndptr;
+			fndptr = strstr(line, pat);
+			if(x == 0 && fndptr == NULL)
+			{
+				if(n)
+					printf("%-5lu\t", lnum);
+				printf("%s", line);
+			}
+			else if(x == 1 && fndptr != NULL)
 			{
 				if(n)
 					printf("%-5lu\t", lnum);
