@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define MAXLINE	1024
+
 int main(int argc, char **argv)
 {
 	/* get file names and argument list
@@ -8,7 +10,7 @@ int main(int argc, char **argv)
 	if(argc < 2)
 	{
 		fprintf(stderr, "Error: incorrect format!\n"
-				"Format: ./find [ARGS] file1, file2, ..., fileN\n");
+				"Format: ./find [ARGS] pattern file1, file2, ..., fileN\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -32,8 +34,38 @@ int main(int argc, char **argv)
 		}
 	}
 
-	/* get files */
-	while(
+	/* get pattern */
+	char *pat = strdup(*argv++);
+
+	/* find program run on each file */
+	while(--argc > 0)
+	{
+		/* open each file */
+		FILE *fp = fopen(*argv, "r");
+		if(fp == NULL)
+			fprintf(stderr, "Error: unable to open %s file!\n", *argv);
+
+		printf("File %s\n", *argv);
+		unsigned long lnum = 0;
+		char line[MAXLINE], *lp;
+		while((lp = fgets(line, MAXLINE, fp)) != NULL)
+		{
+			lnum++;
+			/* TODO: add exclude */
+			if(strstr(line, pat) != NULL)
+			{
+				if(n)
+					printf("%-5lu\t", lnum);
+				printf("%s\n", line);
+			}
+		}
+		printf("\n\n");
+		/* close each file and advance argv */
+		fclose(fp); /* XXX: should we do error checking for EOF?? */
+		++argv;
+	}
+
+	/* TODO: REMEMBER TO ADD FEOF AND FERROR HANDLING LATER */
 	/*TODO: GET FILE INPUTS */
 	
 
