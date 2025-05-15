@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define MAXLINE	1024
 
@@ -7,10 +8,10 @@ int main(int argc, char **argv)
 {
 	/* get file names and argument list
 	 * format: ./find [ARGS] file1, file2, ..., fileN */
-	if(argc < 2)
+	if(argc < 3)
 	{
 		fprintf(stderr, "Error: incorrect format!\n"
-				"Format: ./find [ARGS] pattern file1, file2, ..., fileN\n");
+				"Format: ./find [ARGS] PATTERN FILE1, FILE2, ..., FILEN\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -32,10 +33,12 @@ int main(int argc, char **argv)
 				exit(EXIT_FAILURE);
 			}
 		}
+		++argv;
 	}
 
 	/* get pattern */
 	char *pat = strdup(*argv++);
+	--argc;
 
 	/* find program run on each file */
 	while(--argc > 0)
