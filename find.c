@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+
 #define MAXLINE	1024
 
 int main(int argc, char **argv)
@@ -56,13 +57,13 @@ int main(int argc, char **argv)
 			lnum++;
 			char *fndptr;
 			fndptr = strstr(line, pat);
-			if(x == 0 && fndptr == NULL)
+			if(x == 0 && fndptr != NULL)
 			{
 				if(n)
 					printf("%-5lu\t", lnum);
 				printf("%s", line);
 			}
-			else if(x == 1 && fndptr != NULL)
+			else if(x == 1 && fndptr == NULL)
 			{
 				if(n)
 					printf("%-5lu\t", lnum);
